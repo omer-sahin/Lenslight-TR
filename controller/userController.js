@@ -1,6 +1,6 @@
 import User from "../models/userModel.js";
-import bcrypt from "bcrypt"
-
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken"
 const createUser = async (req, res) => {
   try {
     const user = await User.create(req.body);
@@ -13,46 +13,43 @@ const createUser = async (req, res) => {
     res.status(400).json({
       success: false,
       error,
-      
     });
   }
 };
-const loginUser= async (req,res)=>{
-  try{
+const loginUser = async (req, res) => {
+  try {
+    const { username, password } = req.body;
+    
+    const user = await User.findOne({ username });
+    let same = false;
+    if (user) {
+      same = await bcrypt.compare(password, user.password);
+      
+    } else {
+      return res.status(400).redirect("/login");
+    }
+    if (same) {
+      res.status(200).json({
+        user,
+        token:createtoken(user. _id),
 
-      const { username,password}=req.body;
-      console.log("Req.Body",req.body)
-      const user=await User.findOne({username})
-      let same=false
-      if(user){
-        
-
-          same=await bcrypt.compare(password,user.password)
-          console.log("sam",same)
-          
-      }
-      else{
-        return res.status(400).redirect("/login")
-      }
-      if(same){
-        res.status(200).send("success")
-      }
-      else{
-        res.status(400).redirect("/login")
-      }
-
-
-
-  }catch (error) {
+      })
+    } else {
+      res.status(400).redirect("/login");
+    }
+  } catch (error) {
     res.status(400).json({
       success: false,
       error,
-      
     });
   }
+};
 
+
+const createtoken=(userId) =>{
+  return jwt.sign({userId},process.env.JWT_SECRET,{
+    expiresIn:"1d",
+  })
 }
 
-
-
-export {createUser,loginUser}
+export { createUser, loginUser };

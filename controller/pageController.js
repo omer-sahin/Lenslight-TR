@@ -1,7 +1,7 @@
 
 const getIndexPage = (req,res)=>{
 
-
+console.log("Req User",req.user)
 
 res.render("index",{
     pages:"index"
