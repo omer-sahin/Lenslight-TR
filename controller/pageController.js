@@ -1,10 +1,17 @@
 
-const getIndexPage=(req,res)=>{
-res.render("index")
+const getIndexPage = (req,res)=>{
+
+
+
+res.render("index",{
+    pages:"index"
+})
 
 };
 const getAboutPage=(req,res)=>{
-    res.render("about")
+    res.render("about",{
+        pages:"about"
+    })
 
 }
 
