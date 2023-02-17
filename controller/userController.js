@@ -29,11 +29,12 @@ const loginUser = async (req, res) => {
       return res.status(400).redirect("/login");
     }
     if (same) {
-      res.status(200).json({
-        user,
-        token:createtoken(user. _id),
-
+      const token=createtoken(user. _id);
+      res.cookie("jwt",token,{
+        httpOnly:true,
+        maxAge: 1000*60*60*24
       })
+      res.status(200).redirect("/users/dashboard")
     } else {
       res.status(400).redirect("/login");
     }
@@ -52,4 +53,14 @@ const createtoken=(userId) =>{
   })
 }
 
-export { createUser, loginUser };
+
+
+
+const getDashboardPage =  (req,res)=>{
+  res.status(200).render("dashboard",{
+    pages:"dashboard"
+  })
+
+}
+
+export { createUser, loginUser,getDashboardPage };
