@@ -9,6 +9,9 @@ const photoSchema = new Schema({
   user:{
     type:Schema.Types.ObjectId,
     ref:"user"
+  },
+  url:{
+    type:String,required:true
   }
 });
 
