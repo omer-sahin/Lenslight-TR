@@ -7,7 +7,7 @@
         </div>
       </div>
       <div class="col-md-10">
-        <div class="navbar-area "  style="float: right;">
+        <div class="navbar-area" style="float: right">
           <nav class="site-navbar">
             <ul>
               <li>
@@ -28,12 +28,35 @@
               <li><a href="projects.html">Projects</a></li>
               <li><a href="blog.html">Blog</a></li>
               <li><a href="contact.html">Contact</a></li>
+            
+             
+
+        
+              <% if(user) { %>
+
+                <li>
+                  <a
+                    class="<%=pages=='dashboard' && 'active' %>"
+                    href="/users/dashboard"
+                    >dashboard</a
+                  >
+                </li>
               <li>
-                <a class="<%=pages=='login' && 'active' %>" href="/login">login</a>
+                <a href="/logout">logout</a>
+              </li>
+
+              <% } else { %>
+              <li>
+                <a class="<%=pages=='login' && 'active' %>" href="/login"
+                  >login</a
+                >
               </li>
               <li>
-                <a class="<%=pages=='register' && 'active' %>" href="/register">register</a>
+                <a class="<%=pages=='register' && 'active' %>" href="/register"
+                  >register</a
+                >
               </li>
+              <% } %>
             </ul>
             <button class="nav-toggler">
               <span></span>
