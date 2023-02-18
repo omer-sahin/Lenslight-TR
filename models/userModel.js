@@ -1,12 +1,27 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
+import validator from "validator";
 
 const { Schema } = mongoose;
 const userSchema = new Schema(
   {
-    username: { type: String, required: true, unique: true },
-    email: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
+    username: {
+      type: String,
+      required: [true, "Username Alanı boş bırakılamaz"],
+      lowercase: true,
+      validate: [validator.isAlphanumeric,"Sadece Alfanumerik karakterler giriniz lütfen"]
+    },
+    email: {
+      type: String,
+      required: [true, "Email Alanı boş bırakılamaz"],
+      unique: true,
+      validate: [validator.isEmail, " Mail alanına mail girmek zorunludur  "],
+    },
+    password: {
+      type: String,
+      required: [true, "Password Alanı boş bırakılamaz"],
+      minlength: [6, "En az 8 karakter girmelisiniz"],
+    },
   },
   {
     timestamps: true,
