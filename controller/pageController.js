@@ -21,13 +21,13 @@ const getLoginPage = (req, res) => {
     pages: "login",
   });
 };
+
 const getLogout = (req, res) => {
-  res.cookie("jwt", "", {
-    httpOnly: true,
+  res.cookie('jwt', '', {
     maxAge: 1,
   });
-  res.redirect("/");
-
+  res.redirect('/');
 };
+
 
 export { getIndexPage, getAboutPage, getRegisterPage, getLoginPage,getLogout };

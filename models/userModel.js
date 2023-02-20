@@ -22,7 +22,20 @@ const userSchema = new Schema(
       required: [true, "Password Alanı boş bırakılamaz"],
       minlength: [6, "En az 8 karakter girmelisiniz"],
     },
+    followers:[
+      {
+        type:Schema.Types.ObjectId,
+        ref:"user",
+      }
+    ],
+    followings:[
+      {
+        type:Schema.Types.ObjectId,
+        ref:"user",
+      }
+    ],
   },
+
   {
     timestamps: true,
   }
