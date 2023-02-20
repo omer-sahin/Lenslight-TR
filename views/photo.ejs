@@ -24,6 +24,9 @@
                 <a class="read_more" href="/users/<%=photo.user._id%>">
                   <%=photo.user.username%>
                 </a>
+
+
+               <% if(isOwner) { %>
                 <div style="margin-top: 30px ;">
                   <ul style="display: flex; justify-content: space-between;">
                      <li><button style="min-width: 266px;" class="read_more" 
@@ -32,6 +35,7 @@
                      <li><a style="min-width: 266px;" class="read_more" href="/photos/<%=photo._id%>?_method=DELETE" onclick="confirm('Bu fotoğrafı silmek istedğinizden emin misiniz')" >Delete</a></li>
                   </ul>
                </div>
+               <%}%>
               </div>
              
             </div>
@@ -71,7 +75,7 @@
                 <form id="request" class="main_form" method="POST" action="/photos/<%=photo._id%>?_method=PUT" enctype="multipart/form-data"  >
                   <div class="row">
                     <div class="col-md-12">
-                      <input class="form_control" placeholder="Name" value="<%=photo.name%>" type="text" name="name">
+                      <input class="form_control" placeholder="Name" value="<%= photo.name %>" type="text" name="name">
                     </div>
                     <div class="col-md-12">
                       <textarea name="description" style="height: 150px;" class="form_control"
